@@ -1,34 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Buttons</title>
-        <script>
-            function changeRed() {
-                document.querySelector("body").style.backgroundcolor = "red"
-            }
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Buttons</title>
+            <script>
+                function changeRed() {
+                    document.querySelector("body").style.backgroundcolor = "red"
+                }
 
-            function changeGreen() {
-                document.querySelector("body").style.backgroundcolor = "green"
-            }
+                function changeGreen() {
+                    document.querySelector("body").style.backgroundcolor = "green"
+                }
 
-            function changeBlue() {
-                document.querySelector("body").style.backgroundcolor = "blue"
-            }
-        </script>
-    </head>
-<body>
-    <button data-color="red">Red</button>
-    <button data-color="green">Green</button>
-    <button data-color="blue">Blue</button>
-<script>
-    let buttons = document.querySelectorAll("button");
-    buttons.forEach(button => {
-        button.addEventListener('click', function(){
-            document.body.style.backgroundColor = this.dataset.color;
+                function changeBlue() {
+                    document.querySelector("body").style.backgroundcolor = "blue"
+                }
+            </script>
+        </head>
+    <body>
+        <button data-color="red">Red</button>
+        <button data-color="green">Green</button>
+        <button data-color="blue">Blue</button>
+    <script>
+        let buttons = document.querySelectorAll("button");
+        buttons.forEach(button => {
+            button.addEventListener('click', function(){
+                document.body.style.backgroundColor = this.dataset.color;
+            })
         })
-    })
-</script>
-</body>
-</html>
+    </script>
+    </body>
+    </html>
