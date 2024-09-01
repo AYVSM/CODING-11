@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const Blog = require('./models/blog')
 
 const app = express();
 
@@ -14,9 +15,35 @@ mongoose.connect(dbURl)
         })
         .catch(err => console.log(err));
 
-
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+
+//sandbox
+app.post('/blogs', (req,res) => {
+    const blog = new Blog(req.body)
+    blog.save()
+        .then(result => {
+            res.redirect('/blogs')
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
+app.get('/add-blog', (req, res) => {
+    const blog = new Blog({
+        title:'new blog 1',
+        snippet:'about my new blog',
+        body:'more about my blog',
+    })
+
+    blog.save()
+        .then(result => {
+            res.send(result)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+});
 
 app.get('/', (req, res) => {
     const blogs = [
