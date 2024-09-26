@@ -1,0 +1,1 @@
+mongodb+srv://admin:Admin1234@nodejs-app.j9v4g.mongodb.net/nodejs-app?retryWrites=true&w=majority&appName=Nodejs-app

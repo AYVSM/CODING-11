@@ -1,11 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+const bodyParser = require('body-parser');
+ 
 const Blog = require('./models/blog');
-
+ 
 const app = express();
-
-const dbURI = 'mongodb+srv://:@cluster0.6j0u4.mongodb.net/nodejs-app?retryWrites=true&w=majority&appName=Cluster0';
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+ 
+const dbURI = 'mongodb+srv://admin:Admin1234@nodejs-app.j9v4g.mongodb.net/nodejs-app?retryWrites=true&w=majority&appName=Nodejs-app';
 mongoose.connect(dbURI)
         .then(result => {
           console.log('connected to db');
@@ -19,61 +21,102 @@ mongoose.connect(dbURI)
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-// Sandbox
-
-app.get('/add-blog', (req, res) => {
-    const blog = new Blog({
-        title: 'new blog 4',
-        snippet: 'about my new blog',
-        body: 'more about my new blog'
-    })
-
-    blog.save()
-        .then(result => {
-        res.send(result);
-        })
-        .catch(err => {
-        console.log(err);
-        });
+app.get('/', (req, res) => {
+  res.redirect('/blogs');
 });
 
-app.get('blog', (req, res) => {
-    Blog.find().sort({ createdAt : -1 })
+app.get('/news', (req, res) => {
+  res.render('news', { title: 'News' });
+});
+
+app.get('/blogs', (req, res) => {
+  Blog.find().sort({ createdAt : -1})
     .then( result => {
-        res.render('index', {blogs: result, title: 'All blogs' });
+      res.render('index', {blogs: result, title: 'All blogs'});
     })
     .catch()
 })
 
-app.post('/blogs', (req, res) => {
-    const blog = new Blog(req.body);
+app.post('/blogs', urlencodedParser, (req, res) => {
+  const blog = new Blog(req.body);
+
+  blog.save()
+    .then(result => {
+      console.log('Blog created:', result); // Log blog creation
+      res.redirect('/blogs');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+// Sandbox Route
+app.get('/add-blog', (req, res) => {
+  const blog = new Blog({
+      title: 'new blog 4',
+      snippet: 'about my new blog',
+      body: 'more about my new blog'
+  })
   
-    blog.save()
+  blog.save()
       .then(result => {
-        res.redirect('/blogs');
+      res.send(result);
       })
       .catch(err => {
-        console.log(err);
+      console.log(err);
       });
 });
 
-app.get('/', (req, res) => {
-    const blogs = [
-      {title: 'Yoshi finds eggs', snippet: 'Lorem ipsum dolor sit amet consectetur'},
-      {title: 'Mario finds stars', snippet: 'Lorem ipsum dolor sit amet consectetur'},
-      {title: 'How to defeat bowser', snippet: 'Lorem ipsum dolor sit amet consectetur'},
-    ];
-    res.render('index', { title: 'Home', blogs });
+app.get('/add-blogs', (req, res) => {
+  res.render('create', { title: 'Create a new blog' });
 });
- 
-app.get('/about', (req, res) => {
-    res.render('about', { title: 'About' });
+
+app.post('/add-blogs', urlencodedParser, (req, res) => {
+  const newBlog = new Blog({
+    title: req.body.title,
+    snippet: req.body.snippet,
+    body: req.body.body
+  });
+
+  newBlog.save()
+    .then(() => res.redirect('/blogs'))
+    .catch(err => {
+      console.log(err);
+      res.status(500).send('Server error');
+    });
 });
 
 app.get('/blogs/create', (req, res) => {
-    res.render('create', { title: 'Create a new blog' });
+  res.render('create', { title: 'Create a new blog' });
+}); 
+
+app.get('/blogs/:id', (req, res) => {
+  const id = req.params.id;
+  Blog.findById(id)
+    .then(result => {
+      res.render('details', { blog: result, title: 'Blog Details' });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(404).render('404', { title: 'Blog Not Found' });
+    });
+});
+
+app.get('/about', (req, res) => {
+  Blog.find().sort({ createdAt: -1 }).limit(2)
+    .then(result => {
+      console.log('Latest blogs:', result); // Log the fetched blogs
+      res.render('about', { 
+        title: 'About', 
+        latestBlogs: result 
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send('Server error');
+    });
 });
 
 app.use((req, res) => {
-    res.status(404).render('404', { title: '404' });
+  res.status(404).render('404', { title: '404' });
 });
