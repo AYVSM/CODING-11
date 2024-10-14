@@ -7,11 +7,11 @@ const Blog = require('./models/blog');
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
  
-const dbURI = 'mongodb+srv://admin:Admin1234@nodejs-app.j9v4g.mongodb.net/nodejs-app?retryWrites=true&w=majority&appName=Nodejs-app';
+const dbURI = 'mongodb://localhost:27017/nodejs-app';
 mongoose.connect(dbURI)
         .then(result => {
           console.log('connected to db');
-          const PORT = 3000;
+          const PORT = 8000;
           app.listen(PORT, () => {
               console.log(`Server is running on http://127.0.0.1:${PORT}`);
           });
@@ -69,6 +69,18 @@ app.get('/add-blog', (req, res) => {
 
 app.get('/add-blogs', (req, res) => {
   res.render('create', { title: 'Create a new blog' });
+});
+
+app.delete('/blogs/:id', (req, res) => {
+  const id = req.params.id;
+  Blog.findByIdAndDelete(id)
+    .then(result => {
+      res.json({ redirect: '/blogs' }); // Mengembalikan respons untuk mengarahkan ulang ke halaman blog
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send('Server error');
+    });
 });
 
 app.post('/add-blogs', urlencodedParser, (req, res) => {
