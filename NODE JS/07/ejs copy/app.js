@@ -11,7 +11,7 @@ const dbURI = 'mongodb://localhost:27018//nodejs-app';
 mongoose.connect(dbURI)
         .then(result => {
           console.log('connected to db');
-          const PORT = 3000;
+          const PORT = 8000;
           app.listen(PORT, () => {
               console.log(`Server is running on http://127.0.0.1:${PORT}`);
           });

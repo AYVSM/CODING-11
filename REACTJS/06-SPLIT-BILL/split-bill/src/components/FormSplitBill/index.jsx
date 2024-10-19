@@ -1,33 +1,50 @@
+import { useState } from "react";
 import "./form.css";
 
-export default function FormSplitBill() {
+export default function FormSplitBill({selectedFriend, handleSplitBill}) {
+  const [amount, setAmount] = useState("");
+  const [myBill, setMyBill] = useState("");
+  const friendBill = amount ? amount - myBill : "";
+  const [whoIsPaying, setWhoIsPaying] = useState("user");
 
-    return (
-        <form action="" className="form-split-bill">
-            <h2>Patungan Bareng si</h2>
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!amount || !myBill) return;
+    handleSplitBill(whoIsPaying === "user" ? friendBill : -myBill);
+  }
 
-            <label htmlFor="totalTagihan">Total tagihan</label>
-            <input
-                type="text"
-                id="totalTagihan"
-            />
+  return (
+    <form action="" className="form-split-bill" onSubmit={handleSubmit}>
+      <h2>Patungan Bareng si {selectedFriend.name} </h2>
 
-            <label htmlFor="tagihanKamu">Tagihan Kamu</label>
-            <input 
-                type="text" 
-                id="tagihanKamu"
-            />
+      <label htmlFor="totalTagihan">💵Total Tagihan</label>
+      <input
+        type="text"
+        id="totalTagihan"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+      />
 
-            <label htmlFor="tagihan">Tagihan</label>
-            <input type="text" id="tagihan" disabled />
+      <label htmlFor="tagihanKamu">🙋🏼‍♂Tagihan Kamu</label>
+      <input
+        type="text"
+        id="tagihanKamu"
+        value={myBill}
+        onChange={(e) => setMyBill(e.target.value)}
+      />
 
-            <label htmlFor="opsiTeman">💵Ditalangin sama</label>
-            <select id="opsiTeman">
-                <option value="user">Kamu</option>
-                <option value="friend"></option>
-            </select>
+      <label htmlFor="tagihan">🙋🏼Tagihan {selectedFriend.name} </label>
+      <input type="text" id="tagihan" disabled value={friendBill} />
 
-            <button className="button">Tambahan</button>
-        </form>
-    );
+      <label htmlFor="opsiTeman">🤑Ditalangin sama</label>
+      <select id="opsiTeman">
+        value ={whoIsPaying}
+        onchange={(e) => setWhoIsPaying(e.target.value)}
+        <option value="user">Kamu</option>
+        <option value="friend">{selectedFriend.name}</option>
+      </select>
+
+      <button className="button">Tambah</button>
+    </form>
+  );
 }

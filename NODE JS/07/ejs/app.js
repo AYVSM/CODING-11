@@ -7,7 +7,7 @@ const Blog = require('./models/blog');
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
  
-const dbURI = 'mongodb://localhost:27017/nodejs-app';
+const dbURI = 'mongodb://localhost:27018/nodejs-app';
 mongoose.connect(dbURI)
         .then(result => {
           console.log('connected to db');
