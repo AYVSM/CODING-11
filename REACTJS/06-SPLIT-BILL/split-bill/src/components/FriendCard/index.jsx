@@ -1,6 +1,6 @@
 import "./friend.css";
 
-export default function FriendCard({ friend, onSelectedFriend, selectedFriend }) {
+export default function FriendCard({ friend, onSelectedFriend, selectedFriend , onDeleteFriend}) {
   const isSelected = selectedFriend?.id === friend.id;
 
     return (
@@ -20,6 +20,9 @@ export default function FriendCard({ friend, onSelectedFriend, selectedFriend })
         {friend.balance === 0 && <p>Kamu dan {friend.name} tidak ada hutang</p>}
         <button className="button" onClick={() => onSelectedFriend(friend)}>
           {isSelected ? "Tutup" : "Pilih"}
+        </button>
+        <button className="delete" onClick={() => onDeleteFriend(friend.id)}>
+          Hapus
         </button>
       </li>
     );

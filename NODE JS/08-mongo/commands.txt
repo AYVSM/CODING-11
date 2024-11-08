@@ -1,0 +1,37 @@
+show dbs
+show collections
+use <db>
+cls
+var <variable>
+help
+exit
+
+"title":
+        "author":
+        "pages":
+        "rating":
+        "reviews": [
+            {"reviewer":}
+            {"reviewer":}
+        ],
+        "genres": []
+
+db.books.find({$or:[{pages:{$lt:300}}, {pages:{$gte:400}}]})
+db.books.find({$or:[{rating:7}, {rating:9}]})
+--------------------------------------------
+Using in and nin
+db.books.find({rating:{$in:[7,8,9]}})
+db.books.find({rating:{$nin:[7,8,9]}})
+--------------------------------------------
+Querying Arrays
+List as attribute
+db.books.find({genres:{$all:["fantasy", "sci-fi"]}})
+
+List of objects / object as attributes
+db.books.find({"reviews.name":"luigi})
+
+Soal
+1.Find all books written by "Paulo Coelho".
+2.Find all books with a rating higher than 4.5.
+3.Find all books that have received a review from "Alice" and are categorized under "Thriller"
+4.Find all books that have more than 400 pages, a rating of at least 4.5, and belong to the "Fiction" genre

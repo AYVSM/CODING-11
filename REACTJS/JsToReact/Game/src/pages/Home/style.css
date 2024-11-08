@@ -1,0 +1,39 @@
+.Background {
+    background-image: url("https://supercell.com/_next/static/media/frontpage_hero.d61f5c14.webp");
+    height: 100%;
+    width: auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top;    
+}
+
+.Background h1 {
+    text-transform: uppercase;
+    font-size: 32px;
+    letter-spacing: -.8px;
+    margin-bottom: .33em;
+    margin-top: 0;
+    line-height: 1.25em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rounded-button {
+    padding: 10px 20px;
+    background-color: #1f7aeb;  
+    color: white; 
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    position: relative;
+    top: 10%;
+    left: 40%;
+}
+  
+.rounded-button:hover {
+    background-color: #0f5dbc; 
+}
+  

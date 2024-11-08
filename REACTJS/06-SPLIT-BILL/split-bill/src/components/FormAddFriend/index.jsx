@@ -8,7 +8,7 @@ export default function FormAddFriend({ onAddNewFriend })
 
     const handleSubmit = e => {
         e.preventDefault();
-
+    
         if (!name || !imageUrl) return;
 
         const id = crypto.randomUUID();
@@ -24,22 +24,22 @@ export default function FormAddFriend({ onAddNewFriend })
         setImageUrl(defaultImgUrl);
     }
 
-    return(
+    return (
         <form className="form-add-friend" onSubmit={handleSubmit}>
-            <label htmlFor="name">🙂 Nama</label>
+            <label htmlFor="name">🤷🏻‍♂️ Nama</label>
             <input 
-                type="text"
+                type="text" 
                 id="name" 
-                value={name}
+                value={name} 
                 onChange={e => setName(e.target.value)}/>
 
-            <label htmlFor="imageUrl">📷 Gambar</label>
+            <label htmlFor="imageUrl">📸 Gambar</label>
             <input 
-                type="text"
-                id="imageUrl"
-                value={imageUrl}
+                type="text" 
+                id="imageUrl" 
+                value={imageUrl} 
                 onChange={e => setImageUrl(e.target.value)}/>
-            
+
             <button className="button">Tambah</button>
         </form>
     )

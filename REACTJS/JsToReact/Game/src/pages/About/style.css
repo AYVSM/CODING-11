@@ -1,0 +1,22 @@
+.Container-About {
+    background-image: url("https://supercell.com/_next/static/media/aboutus_hero.2b8f64d2.webp");
+    height: 100%;
+    width: auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top;    
+}
+
+h1 {
+    font-size: 45px;
+    color: white;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    top: 40%;
+}
+
+s{
+    color: #1f7aeb;
+}
