@@ -32,6 +32,17 @@ db.books.find({"reviews.name":"luigi})
 
 Soal
 1.Find all books written by "Paulo Coelho".
+
+db.books.find({author: "Paulo Coelho"})
+
 2.Find all books with a rating higher than 4.5.
+
+db.books.find({rating :{$gt:4.5}})
+
 3.Find all books that have received a review from "Alice" and are categorized under "Thriller"
+
+db.books.find({"reviews.reviewer" : "Alice", genres : "Thriller"})
+
 4.Find all books that have more than 400 pages, a rating of at least 4.5, and belong to the "Fiction" genre
+
+db.books.find({pages: {$gt: 400}, rating : {$gte:4.5}, genres : "Fiction"})

@@ -64,5 +64,16 @@
             {"reviewer": "Tina", "comment": "A masterpiece of American literature."}
         ],
         "genres": ["Fiction", "Classic"]
+    },
+    {
+        "title": "Albert Einstein",
+        "author": "Albert Valentino",
+        "pages": 1024,
+        "rating": 10,
+        "reviews": [
+            {"reviewer": "Samuel", "comment": "A profound impact."},
+            {"reviewer": "Michael", "comment": "A masterpiece of American literature."}
+        ],
+        "genres": ["Fiction", "Classic"]
     }
 ]
